@@ -1,7 +1,5 @@
 package Spring.di.entity;
 
-import Spring.di.Exam;
-
 public class NewlecExam implements Exam {
 	
 	private int kor;
@@ -9,6 +7,23 @@ public class NewlecExam implements Exam {
 	private int math;
 	private int com;
 	
+
+	public void setKor(int kor) {
+		this.kor = kor;
+	}
+
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+
+	public void setMath(int math) {
+		this.math = math;
+	}
+
+	public void setCom(int com) {
+		this.com = com;
+	}
+
 	@Override
 	public int total() {
 		// TODO Auto-generated method stub
