@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
+
+
+	<context:component-scan base-package="Spring.di.ui"/>
+	<context:component-scan base-package="Spring.di.entity"/>
 	<!-- Exam exam = new NewlecExam(); -->
-	<bean id ="exam" class ="Spring.di.entity.NewlecExam" >
-		<property name="kor">
-			<value>10</value> <!-- 때에 따라 value를 사용할수도 있다. -->
-		</property>
-		
-		<property name="eng" value = "10"></property>
-		<property name="math" value = "10"></property>
-		<property name="com" value = "10"></property>
-		
-	</bean>
+	<bean id ="exam1" class ="Spring.di.entity.NewlecExam" p:kor = "10" p:eng = "10"/>
+	<!-- <bean id ="exam2" class ="Spring.di.entity.NewlecExam" p:kor = "20" p:eng = "20"/> -->
+ 
+<!-- 	<bean id ="exam" class ="Spring.di.entity.NewlecExam" >
+		<constructor-arg name = "kor" value = "10"/>
+		<constructor-arg name = "eng" value = "20"/>
+		<constructor-arg name = "com" value = "30"/>
+		<constructor-arg name = "math" value = "40"/>
+	</bean> -->
 	<!-- ExamConsole console = new GridExamConsole(); -->
-	<bean id ="console" class = "Spring.di.ui.InlineExamConsole">
-		<!-- console.setExam(exam); -->
+<!-- 	<bean id ="console" class = "Spring.di.ui.InlineExamConsole">
+		console.setExam(exam);
 		<property name = "exam" ref = "exam" />
-	</bean>
+	</bean> -->
 	
+	
+<!-- 	<bean id = "exams" class ="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<bean id ="exam" class ="Spring.di.entity.NewlecExam" p:kor ="10" p:eng="20" p:math ="30" p:com = "10"/>
+				<ref bean = "exam"/>
+			</list>
+		</constructor-arg>
+	</bean> -->
+	
+		
 </beans>
