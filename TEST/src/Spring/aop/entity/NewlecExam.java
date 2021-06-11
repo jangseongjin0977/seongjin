@@ -1,4 +1,4 @@
-package Spring.aop.entity.copy;
+package Spring.aop.entity;
 
 public class NewlecExam implements Exam {
 	
