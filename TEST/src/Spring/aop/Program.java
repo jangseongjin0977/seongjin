@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import org.springframework.aop.framework.ProxyFactoryBean;
+
 import Spring.aop.entity.Exam;
 import Spring.aop.entity.NewlecExam;
 import Spring.di.NewlecDIConfig;

@@ -4,12 +4,63 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
-	<bean id ="exam" class ="Spring.aop.entity.NewlecExam" p:kor = "1" p:eng = "1" p:math="1" p:com = "1"/>
-
+	<bean id ="target" class ="Spring.aop.entity.NewlecExam" p:kor = "1" p:eng = "1" p:math="1" p:com = "1"/>
+	<bean id ="logAroundAdvice" class = "Spring.aop.advice.LogAroundAdvice" />
+	<bean id ="logBeforeAdvice" class = "Spring.aop.advice.LogBeforeAdvice" />
+	<bean id ="logAfterReturningAdvice" class = "Spring.aop.advice.LogAfterReturningAdvice" />
+	<bean id ="logAfterThrowingAdvice" class = "Spring.aop.advice.LogAfterThrowingAdvice" />
+	
+<!-- 	<bean id = "classPointCut" class = "org.springframework.aop.support.NameMatchMethodPointcut">
+		<property name="mappedName" value = "total"/>
+	</bean>
+		
+	<bean id = "classBeforeAdvisor" class = "org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref = "logBeforeAdvice"/>
+		<property name="pointcut" ref = "classPointCut"/>
+	</bean> -->
+	
+<!-- 	<bean id = "classBeforeAdvisor" class = "org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+		<property name="advice" ref = "logBeforeAdvice"/>
+		<property name="mappedName">
+			<list>
+				<value>total</value>
+				<value>avg</value>
+			</list>
+		</property>
+	</bean> -->
+	
+	
+	<bean id = "classBeforeAdvisor" class = "org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="advice" ref = "logBeforeAdvice"/>
+		<property name="patterns">
+			<list>
+				<value>.*to.*</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id = "classAroundAdvisor" class = "org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+		<property name="advice" ref = "logAroundAdvice"/>
+		<property name="mappedName" value = "total"/>
+	</bean>
+	
+	<bean id ="exam" class = "org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref = "target"/>
+		<property name="interceptorNames">
+			<list>
+				<value>classAroundAdvisor</value>
+				<value>classBeforeAdvisor</value>
+				<value>logAfterReturningAdvice</value>
+				<value>logAfterThrowingAdvice</value>
+			</list>
+		</property>
+	</bean>
 	
 		
 </beans>
